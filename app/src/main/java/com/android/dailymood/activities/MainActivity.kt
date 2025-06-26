@@ -17,7 +17,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContentView(R.layout.activity_main)
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_layout)) { view, insets ->
+            val topInset = insets.getInsets(WindowInsetsCompat.Type.statusBars()).top
+            view.setPadding(0, topInset, 0,0)
+            insets
+        }
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
