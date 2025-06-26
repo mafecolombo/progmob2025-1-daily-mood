@@ -50,7 +50,6 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)
     implementation(libs.play.services.cast.framework)
@@ -64,6 +63,8 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation ("com.google.android.material:material:1.11.0") // ou versão mais recente
+
 
     // 📊 MPAndroidChart
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")

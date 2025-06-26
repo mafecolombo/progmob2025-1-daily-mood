@@ -21,21 +21,38 @@ class RegisterMoodFragment : Fragment() {
     private lateinit var db: AppDatabase
     private var userId: Int? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    private val emojiMap = mapOf(
+        1 to "😢",  // Muito ruim
+        2 to "🙁",  // Ruim
+        3 to "😐",  // Neutro
+        4 to "🙂",  // Bom
+        5 to "😄"   // Muito bom
+    )
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentRegisterMoodBinding.inflate(inflater, container, false)
         db = AppDatabase.getDatabase(requireContext())
         userId = SessionManager.getLoggedInUser(requireContext())
 
+        // Valor inicial do slider: 3 (neutro)
+        binding.sliderMood.value = 3f
+        binding.tvEmoji.text = emojiMap[3]
+
+        // Atualiza o emoji conforme o slider muda
+        binding.sliderMood.addOnChangeListener { _, value, _ ->
+            val intValue = value.toInt().coerceIn(1, 5)
+            binding.tvEmoji.text = emojiMap[intValue]
+        }
+
         binding.btnSave.setOnClickListener {
-            val scale = binding.ratingBar.rating.toInt()
-            val emoji = binding.etEmoji.text.toString()
+            val scale = binding.sliderMood.value.toInt().coerceIn(1, 5)
+            val emoji = emojiMap[scale] ?: "😐"
             val description = binding.etDescription.text.toString()
             val today = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-
-            if (scale == 0 || emoji.isBlank()) {
-                Toast.makeText(requireContext(), "Preencha a escala e o emoji!", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
 
             userId?.let { uid ->
                 lifecycleScope.launch(Dispatchers.IO) {
@@ -43,7 +60,11 @@ class RegisterMoodFragment : Fragment() {
 
                     if (todayEntry != null) {
                         launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Você já registrou seu humor hoje!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                requireContext(),
+                                "Você já registrou seu humor hoje!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     } else {
                         val newEntry = MoodEntry(
@@ -56,9 +77,13 @@ class RegisterMoodFragment : Fragment() {
                         db.moodDao().insertMood(newEntry)
 
                         launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(), "Humor registrado com sucesso!", Toast.LENGTH_SHORT).show()
-                            binding.ratingBar.rating = 0f
-                            binding.etEmoji.text.clear()
+                            Toast.makeText(
+                                requireContext(),
+                                "Humor registrado com sucesso!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            binding.sliderMood.value = 3f
+                            binding.tvEmoji.text = emojiMap[3]
                             binding.etDescription.text.clear()
                         }
                     }

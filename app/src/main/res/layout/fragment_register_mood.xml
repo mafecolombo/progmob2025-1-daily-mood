@@ -1,47 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="24dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:text="Como você está se sentindo hoje?"
-            android:textSize="18sp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:numStars="5"
-            android:stepSize="1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <EditText
-            android:id="@+id/etEmoji"
-            android:hint="Escolha um emoji (😀😐😢)"
-            android:layout_marginTop="16dp"
+        <!-- CARD: Slider de humor -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp">
 
-        <EditText
-            android:id="@+id/etDescription"
-            android:hint="Resumo do seu dia (opcional)"
-            android:layout_marginTop="8dp"
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Como você se sente hoje?"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/sliderMood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:valueFrom="1"
+                    android:valueTo="5"
+                    android:stepSize="1" />
+
+                <TextView
+                    android:id="@+id/tvEmoji"
+                    android:text="😐"
+                    android:textSize="36sp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD: Comentário -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="12dp">
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="Comentário do dia (opcional)"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:id="@+id/etDescription"
+                    android:hint="Hoje eu me senti..."
+                    android:minLines="3"
+                    android:maxLines="5"
+                    android:gravity="top|start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Botão -->
         <Button
             android:id="@+id/btnSave"
             android:text="Salvar humor"
-            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
