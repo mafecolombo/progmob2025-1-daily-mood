@@ -1,33 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:background="@color/white">
 
+    <!-- Logo ou ícone -->
+    <ImageView
+        android:src="@drawable/ic_profile"
+        android:contentDescription="Logo DailyMood"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="24dp"/>
+
+    <!-- Texto de boas-vindas -->
     <TextView
         android:id="@+id/tvWelcome"
         android:text="Bem-vindo ao DailyMood!"
-        android:textSize="24sp"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:gravity="center"
+        android:layout_marginBottom="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
+    <!-- Descrição -->
     <TextView
-        android:textSize="20sp"
-        android:text="O aplicativo que te ajuda a se conhecer e a medir sua emoção 👍"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="Acompanhe seus sentimentos e descubra padrões emocionais ao longo do tempo 😊"
+        android:textSize="16sp"
+        android:textColor="#666666"
         android:gravity="center"
-        />
+        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnStart"
-        android:text="Começar"
-        android:layout_marginTop="32dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btnStart"
+            android:text="Começar"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:textColor="@android:color/white"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content" />
 
 </LinearLayout>
