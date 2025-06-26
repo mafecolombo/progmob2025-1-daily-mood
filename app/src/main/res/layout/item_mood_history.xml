@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:text="📅 10/06/2025"
             android:textStyle="bold"
-            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <!-- Escala e Emoji -->
@@ -31,8 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Humor: 💩 Placeholder"
             android:layout_marginTop="4dp"
-            android:textSize="15sp"
-            android:textColor="@color/black" />
+            android:textSize="15sp" />
 
         <!-- Descrição do dia -->
         <TextView
@@ -41,7 +39,6 @@
             android:layout_height="wrap_content"
             android:text="Lorem Ipsum."
             android:layout_marginTop="8dp"
-            android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
