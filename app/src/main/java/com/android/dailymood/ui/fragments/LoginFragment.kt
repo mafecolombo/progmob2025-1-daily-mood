@@ -10,6 +10,7 @@ import com.android.dailymood.data.local.dao.AppDatabase
 import com.android.dailymood.databinding.FragmentLoginBinding
 import com.android.dailymood.utils.HashUtils
 import com.android.dailymood.utils.SessionManager
+import com.android.dailymood.utils.EmailValidator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +34,11 @@ class LoginFragment : Fragment() {
 
             if (email.isBlank() || password.isBlank()) {
                 Toast.makeText(requireContext(), "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (!EmailValidator.isValid(email)) {
+                Toast.makeText(requireContext(), "Email inválido!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
