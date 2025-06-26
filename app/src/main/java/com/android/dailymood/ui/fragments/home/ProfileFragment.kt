@@ -44,6 +44,11 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(com.android.dailymood.R.id.action_homeFragment_to_loginFragment)
         }
 
+        binding.btnEdit.setOnClickListener {
+            EditProfileDialogFragment().show(parentFragmentManager, "editProfile")
+        }
+
+
         return binding.root
     }
 
