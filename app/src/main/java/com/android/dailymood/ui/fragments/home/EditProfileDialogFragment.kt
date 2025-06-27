@@ -2,7 +2,6 @@ package com.android.dailymood.ui.fragments.home
 
 import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.android.dailymood.R
+import com.android.dailymood.utils.HashUtils
 import com.android.dailymood.data.local.dao.AppDatabase
 import com.android.dailymood.utils.SessionManager
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +20,7 @@ class EditProfileDialogFragment : DialogFragment() {
 
     private lateinit var etNewName: EditText
     private lateinit var etNewEmail: EditText
+    private lateinit var etNewPassword: EditText
     private lateinit var btnConfirm: Button
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -27,6 +28,7 @@ class EditProfileDialogFragment : DialogFragment() {
 
         etNewName = view.findViewById(R.id.etNewName)
         etNewEmail = view.findViewById(R.id.etNewEmail)
+        etNewPassword = view.findViewById(R.id.etNewPassword)
         btnConfirm = view.findViewById(R.id.btnConfirm)
 
         val context = requireContext()
@@ -36,12 +38,13 @@ class EditProfileDialogFragment : DialogFragment() {
         btnConfirm.setOnClickListener {
             val newName = etNewName.text.toString()
             val newEmail = etNewEmail.text.toString()
+            val newPassword = etNewPassword.text.toString()
 
             if (newName.isNotBlank() && newEmail.isNotBlank()) {
                 lifecycleScope.launch(Dispatchers.IO) {
                     val user = db.userDao().getUserById(userId)
                     if (user != null) {
-                        val updatedUser = user.copy(name = newName, email = newEmail)
+                        val updatedUser = user.copy(name = newName, email = newEmail, passwordHash = HashUtils.sha256(newPassword))
                         db.userDao().updateUser(updatedUser)
 
                         withContext(Dispatchers.Main) {
