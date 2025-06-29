@@ -1,5 +1,6 @@
 package com.android.dailymood.ui.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.dailymood.data.local.dao.AppDatabase
 import com.android.dailymood.data.local.model.MoodEntry
 import com.android.dailymood.databinding.FragmentRegisterMoodBinding
+import com.android.dailymood.receivers.ReminderReceiver
 import com.android.dailymood.utils.SessionManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,6 +51,7 @@ class RegisterMoodFragment : Fragment() {
         }
 
         binding.btnSave.setOnClickListener {
+
             val scale = binding.sliderMood.value.toInt().coerceIn(1, 5)
             val emoji = emojiMap[scale] ?: "😐"
             val description = binding.etDescription.text.toString()

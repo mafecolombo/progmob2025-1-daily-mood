@@ -34,6 +34,7 @@
                     android:src="@drawable/ic_profile"
                     android:clickable="true"
                     android:focusable="true"
+                    android:padding="8dp"
                     app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
 
                 <LinearLayout
